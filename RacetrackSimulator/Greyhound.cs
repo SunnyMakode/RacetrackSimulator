@@ -20,7 +20,7 @@ namespace RacetrackSimulator
         {
             bool winningFlag = false;
             Location = Randomizer.Next(1, 4);
-            MyPictureBox.Left = StartingPosition + Location;
+            MyPictureBox.Left += StartingPosition + Location;
             if (MyPictureBox.Left >= RaceTrackLength)
             {
                 winningFlag = true;
@@ -32,7 +32,7 @@ namespace RacetrackSimulator
         public void TakeStartingPosition()
         {
             MyPictureBox.Left = StartingPosition;
-            MyPictureBox.Refresh();
+            Location = 0;
         }
         #endregion
     }

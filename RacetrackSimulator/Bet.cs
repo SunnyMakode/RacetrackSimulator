@@ -28,7 +28,14 @@ namespace RacetrackSimulator
 
         public int PayOut(int Winner)
         {
-            return 0;
+            if (Dog == Winner)
+            {
+                return Amount;
+            }
+            else
+            {
+                return -Amount;
+            }            
         }
     }
 }

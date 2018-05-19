@@ -17,13 +17,17 @@ namespace RacetrackSimulator
 
         public void UpdateLabels()
         {
-            MyLabel.Text = MyBet.GetDescription();
+            if (MyBet != null)
+            {
+                MyLabel.Text = MyBet.GetDescription();
+            }
+            
             MyRadioButton.Text = Name + " has " + Cash + " bucks";
         }
 
         public void ClearBet()
         {
-            MyBet = null;
+            MyBet.Amount = 0;
         }
 
         public bool PlaceBet(int BetAmount, int DogToWin)
@@ -39,9 +43,11 @@ namespace RacetrackSimulator
 
         public void Collect(int Winner)
         {
-            MyBet.PayOut(Winner);
-            UpdateLabels();
+            int collectedAmount = 0;
+            collectedAmount = MyBet.PayOut(Winner);
+            Cash += collectedAmount;
             ClearBet();
+            UpdateLabels();
         }
 
     }

@@ -21,29 +21,29 @@ namespace RacetrackSimulator
             MyRandomizer = new Random();
             greyhoundArray[0] = new Greyhound()
             {
-                MyPictureBox = raceTrackPictureBox,
-                StartingPosition = raceTrackPictureBox.Left,
+                MyPictureBox = pictureBox1,
+                StartingPosition = pictureBox1.Left,
                 RaceTrackLength = raceTrackPictureBox.Width - pictureBox1.Width,
                 Randomizer = MyRandomizer
             };
             greyhoundArray[1] = new Greyhound()
             {
-                MyPictureBox = raceTrackPictureBox,
-                StartingPosition = raceTrackPictureBox.Left,
+                MyPictureBox = pictureBox2,
+                StartingPosition = pictureBox2.Left,
                 RaceTrackLength = raceTrackPictureBox.Width - pictureBox2.Width,
                 Randomizer = MyRandomizer
             };
             greyhoundArray[2] = new Greyhound()
             {
-                MyPictureBox = raceTrackPictureBox,
-                StartingPosition = raceTrackPictureBox.Left,
+                MyPictureBox = pictureBox3,
+                StartingPosition = pictureBox3.Left,
                 RaceTrackLength = raceTrackPictureBox.Width - pictureBox3.Width,
                 Randomizer = MyRandomizer
             };
             greyhoundArray[3] = new Greyhound()
             {
-                MyPictureBox = raceTrackPictureBox,
-                StartingPosition = raceTrackPictureBox.Left,
+                MyPictureBox = pictureBox4,
+                StartingPosition = pictureBox4.Left,
                 RaceTrackLength = raceTrackPictureBox.Width - pictureBox4.Width,
                 Randomizer = MyRandomizer
             };
@@ -54,41 +54,27 @@ namespace RacetrackSimulator
                 MyLabel = joeBetLabel,
                 MyRadioButton = joeRadioButton,
                 Cash = 50,
-                //MyBet = new Bet()
-                //{
-                //    Amount = Convert.ToInt16(numericUpDown1.Value),
-                //    Bettor = this.guy[0],
-                //    Dog = Convert.ToInt16(numericUpDown2.Value)
-                //}
+                MyBet = null
             };
-
+            guy[0].UpdateLabels();
             guy[1] = new Guy()
             {
                 Name = "Bob",
                 MyLabel = bobBetLabel,
                 MyRadioButton = bobRadioButton,
                 Cash = 75,
-                //MyBet = new Bet()
-                //{
-                //    Amount = Convert.ToInt16(numericUpDown1.Value),
-                //    Bettor = this.guy[1],
-                //    Dog = Convert.ToInt16(numericUpDown2.Value) }
+                MyBet = null
             };
-
+            guy[1].UpdateLabels();
             guy[2] = new Guy()
             {
                 Name = "Al",
                 MyLabel = alBetLabel,
                 MyRadioButton = alRadioButton,
                 Cash = 45,
-                //MyBet = new Bet()
-                //{
-                //    Amount = Convert.ToInt16(numericUpDown1.Value),
-                //    Bettor = this.guy[2],
-                //    Dog = Convert.ToInt16(numericUpDown2.Value) }
-                
+                MyBet = null
             };
-
+            guy[2].UpdateLabels();
         }
 
         private void joeRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -113,20 +99,37 @@ namespace RacetrackSimulator
 
         private void betButton_Click(object sender, EventArgs e)
         {
-            guy[1].PlaceBet(Convert.ToInt16(numericUpDown1.Value), Convert.ToInt16(numericUpDown2.Value));
+            for (int i = 0; i < guy.Length; i++)
+            {
+                if (guy[i].MyRadioButton.Checked)
+                {
+                    guy[i].PlaceBet(Convert.ToInt16(numericUpDown1.Value), Convert.ToInt16(numericUpDown2.Value));                    
+                }
+                guy[i].UpdateLabels();
+            }
+            
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            int winneingDogNumber = 0;
             for (int i = 0; i < greyhoundArray.Length; i++)
             {
                 if (greyhoundArray[i].Run())
                 {
                     timer1.Stop();
-                    MessageBox.Show("Dog: " + i+1 + " wins", "Winner" );                   
+                    winneingDogNumber = i + 1;
+                    MessageBox.Show("Dog: " + (i + 1) + " wins", "Winner" );
+                    break;                                        
                 }
-                
             }
+            if (winneingDogNumber != 0)
+            {
+                for (int ii = 0; ii < guy.Length; ii++)
+                {
+                    guy[ii].Collect(winneingDogNumber);
+                }
+            }            
         }
     }
 }
