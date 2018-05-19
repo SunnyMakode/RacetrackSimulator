@@ -112,22 +112,22 @@ namespace RacetrackSimulator
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            int winneingDogNumber = 0;
+            int winningDogNumber = 0;
             for (int i = 0; i < greyhoundArray.Length; i++)
             {
                 if (greyhoundArray[i].Run())
                 {
                     timer1.Stop();
-                    winneingDogNumber = i + 1;
+                    winningDogNumber = i + 1;
                     MessageBox.Show("Dog: " + (i + 1) + " wins", "Winner" );
                     break;                                        
                 }
             }
-            if (winneingDogNumber != 0)
+            if (winningDogNumber != 0)
             {
                 for (int ii = 0; ii < guy.Length; ii++)
                 {
-                    guy[ii].Collect(winneingDogNumber);
+                    guy[ii].Collect(winningDogNumber);
                 }
             }            
         }
