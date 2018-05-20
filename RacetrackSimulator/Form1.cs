@@ -118,16 +118,20 @@ namespace RacetrackSimulator
                 if (greyhoundArray[i].Run())
                 {
                     timer1.Stop();
-                    winningDogNumber = i + 1;
-                    MessageBox.Show("Dog: " + (i + 1) + " wins", "Winner" );
+                    winningDogNumber = i + 1;                    
                     break;                                        
                 }
             }
             if (winningDogNumber != 0)
             {
+                MessageBox.Show("Dog: " + (winningDogNumber) + " wins", "Winner");
                 for (int ii = 0; ii < guy.Length; ii++)
                 {
                     guy[ii].Collect(winningDogNumber);
+                }
+                for (int i = 0; i < greyhoundArray.Length; i++)
+                {
+                    greyhoundArray[i].TakeStartingPosition();
                 }
             }            
         }
